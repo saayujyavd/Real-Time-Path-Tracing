@@ -10,6 +10,7 @@ Based on "Ray Tracing in One Weekend" by Peter Shirley, Trevor David Black, Stev
 - ImGui controls for samples, depth, Field of View (FOV), defocus blur (Depth of Field)
 
 ## Hardware Requirement
+- Windows Operating System (OS)
 - NVIDIA GPU (sm_86 or other arch flags)
 
 ## Software Requirements
