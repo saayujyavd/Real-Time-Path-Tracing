@@ -13,6 +13,7 @@ Based on "Ray Tracing in One Weekend" by Peter Shirley, Trevor David Black, Stev
 - NVIDIA GPU (sm_86 or other arch flags)
 
 ## Software Requirements
+- Windows Operating System (OS)
 - CUDA Toolkit
 - GLFW 3.4
 - GLEW
