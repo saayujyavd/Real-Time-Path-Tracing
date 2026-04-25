@@ -18,9 +18,10 @@ Based on "Ray Tracing in One Weekend" by Peter Shirley, Trevor David Black, Stev
 - GLFW 3.4
 - GLEW
 - ImGui
+- x64 Native Tools Command Prompt for VS
 
-## Build
-Edit paths in 'build.bat' to match your system, then run.
+## Build and Run
+Just type 'build.bat' or 'build' on the "x64 Native Tools Command Prompt for VS".
 
 ## Controls
 | Key 			| Action 	|
