@@ -12,9 +12,9 @@ private:
     vec3 defocus_disk_u, defocus_disk_v;
 
 public:
-    int img_width{ 1920 }, img_height, samples{ 1 }, depth{ 5 };
-    float vfov{ 20.0f }, aspect_ratio{ 1.77778f }, viewport_width, viewport_height, defocus_angle{ 0.2f }, focus_dist{ 1.0f };
-    float focal_len{ 1.0f }, pix_samples_scale;
+    int img_width{ 1920 }, img_height, samples{ 1 }, depth{ 50 };
+    float vfov{ 20.0f }, aspect_ratio{ 1.77778f }, viewport_width, viewport_height, defocus_angle{ 0.6f }, focus_dist{ 10.0f };
+    float focal_len{ 1.0f }, pix_samples_scale, rgb{ 1.0f };
     vec3 viewport_u, viewport_v, pix_delta_u, pix_delta_v;
     vec3 viewport_upper_left, pix00_loc;
     vec3 vup = vec3(0, 1, 0);
@@ -57,7 +57,7 @@ public:
         vec3 right = unit_vector(cross(forward, vup));
         vec3 up = cross(right, forward);
 
-        viewport_height = 2.0f * std::tanf(vfov * 0.0085f);
+        viewport_height = 2.0f * std::tanf(vfov * 0.00873f);
         viewport_width = viewport_height * (float(img_width) / img_height);
 
         viewport_u = viewport_width * right;
@@ -67,14 +67,14 @@ public:
         pix_delta_v = viewport_v / img_height;
 
         viewport_upper_left = centre
-            + focal_len * forward
+            + focus_dist * forward
             - viewport_u / 2.0f
             - viewport_v / 2.0f;
 
         pix00_loc = viewport_upper_left + 0.5f * (pix_delta_u + pix_delta_v);
 
         // Calculate cam. defocus disk basis vects.
-        auto defocus_rad = focus_dist * std::tanf(defocus_angle * 0.0085f);
+        auto defocus_rad = focus_dist * std::tanf(defocus_angle * 0.00873f);
         defocus_disk_u = right * defocus_rad;
         defocus_disk_v = up * defocus_rad;
     }
@@ -113,9 +113,7 @@ public:
         {
             vec3 attenuation_out;
             if (rec.mat->scatter(r, rec, attenuation_out, scattered, state))
-            {
                 return attenuation_out; // Return the material reflectance
-            }
             return vec3(0, 0, 0); // Ray was absorbed (Black)
         }
 

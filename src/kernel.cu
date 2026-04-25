@@ -40,7 +40,6 @@ __global__ void myKernel(vec3* d_output, Camera* cam, Hittables* world, curandSt
                 bool has_hit;
                 Ray scattered;
 
-                // Keep your exact function
                 vec3 v = cam->rayColor(r, world, has_hit, rec, scattered, &local_state);
 
                 if (!has_hit) { 
@@ -51,7 +50,7 @@ __global__ void myKernel(vec3* d_output, Camera* cam, Hittables* world, curandSt
 
                 if (v == vec3(0, 0, 0)) { 
                     // Absorbed by material
-                    self_illumination = vec3(0, 0, 0);
+                    self_illumination = v;
                     break; 
                 }
 
@@ -62,8 +61,10 @@ __global__ void myKernel(vec3* d_output, Camera* cam, Hittables* world, curandSt
 
             pix_col += self_illumination;
         }
+        pix_col *= cam->pix_samples_scale;
+        pix_col = pix_col / (pix_col + vec3(cam->rgb, cam->rgb, cam->rgb));
 
-        d_output[idx] = pix_col * cam->pix_samples_scale;
+        d_output[idx] = vec3(sqrt(pix_col.x()), sqrt(pix_col.y()), sqrt(pix_col.z()));
         state[idx] = local_state;
     }
 }

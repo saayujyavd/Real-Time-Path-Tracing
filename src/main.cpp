@@ -9,7 +9,7 @@
 #include "../headers/camera.h"
 #include "../headers/kernel.h"
 #include "../headers/material.h"
-#include "../headers/imgui.h"
+#include "../headers/gui.h"
 
 #pragma comment(lib, "cudart.lib")
 #pragma comment(lib, "cuda.lib")
@@ -19,7 +19,7 @@
 
 #ifdef SPHERES
 #undef SPHERES
-#define SPHERES 67
+#define SPHERES 484
 #endif
 
 int main()

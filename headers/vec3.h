@@ -6,6 +6,8 @@
 #include <curand_kernel.h>
 #include <cuda_runtime.h>
 
+class vec3;
+
 inline float randFloat(void);
 inline float rand_float(float, float);
 
@@ -40,6 +42,14 @@ public:
 
     __host__ __device__ vec3& operator/=(float t) {
         return *this *= 1.0f / t;
+    }
+
+    __host__ __device__ vec3& operator/=(const vec3& v)
+    {
+        e[0] /= v.e[0];
+        e[1] /= v.e[1];
+        e[2] /= v.e[2];
+        return *this;
     }
 
     __host__ __device__ bool operator==(const vec3& v)
@@ -86,6 +96,9 @@ __host__ __device__ inline vec3 operator*(const vec3& v, float t) {
 }
 __host__ __device__ inline vec3 operator/(const vec3& v, float t) {
     return (1.0f / t) * v;
+}
+__host__ __device__ inline vec3 operator/(const vec3& v, const vec3& u) {
+    return vec3(v.x() / u.x(), v.y() / u.y(), v.z() / u.z());
 }
 __host__ __device__ inline float dot(const vec3& u, const vec3& v) {
     return u.e[0] * v.e[0] + u.e[1] * v.e[1] + u.e[2] * v.e[2];
